@@ -1,0 +1,29 @@
+# name the installer
+Name "Counter"
+
+OutFile "CounterSetup.exe"
+InstallDir "$PROGRAMFILES\Counter"
+
+!include "MUI2.nsh"
+!define MUI_ICON "favicon.ico"
+!define MUI_FINISHPAGE_LINK "Get Source Code - GitHub"
+!define MUI_FINISHPAGE_LINK_LOCATION "https://github.com/dcb9/dead-simple-counter-win-rs"
+!define MUI_FINISHPAGE_RUN "$INSTDIR\counter.exe"
+!define MUI_FINISHPAGE_RUN_TEXT "Open Counter"
+!define MUI_FINISHPAGE_SHOWREADME "$INSTDIR\README.md"
+!define MUI_FINISHPAGE_SHOWREADME_TEXT "Open README.md"
+
+Page directory
+Page instfiles
+ 
+# default section start; every NSIS script has at least one section.
+Section
+    SetOutPath "$INSTDIR"
+    File "target\release\counter.exe"
+    File "favicon.ico"
+    File "README.md"
+    CreateShortCut "$DESKTOP\Counter.lnk" "$INSTDIR\counter.exe" "" "$INSTDIR\favicon.ico"
+# default section end
+SectionEnd
+
+!insertmacro MUI_PAGE_FINISH
